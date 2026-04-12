@@ -40,11 +40,33 @@
         name: name,
         location: location,
         daysCompleted: 8
-        daysRemaining: 22
+        
     };
+
 
     log(`Age: ${age}, Learning: ${isLearning}`);
     log(`Skills: ${skills.join(", ")}`);
+
+    import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
+public class ChallengeTracker {
+    public static long getDaysLeft(LocalDate startDate) {
+        LocalDate today = LocalDate.now(); // Get current system date
+        LocalDate endDate = startDate.plusDays(30); // Calculate challenge end date
+        
+        // Calculate days between today and the end date
+        long daysLeft = ChronoUnit.DAYS.between(today, endDate);
+        
+        // Return 0 if the challenge is already over
+        return Math.max(0, daysLeft);
+    }
+
+    public static void main(String[] args) {
+        LocalDate myStartDate = LocalDate.of(2024, 3, 25);
+        System.out.println("Days left: " + getDaysLeft(myStartDate));
+    }
+}
 
     // 3. Functions
     function greet(person) {
