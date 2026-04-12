@@ -18,8 +18,50 @@
     </div>
 
     <script>
-        // Your JavaScript code will go here
-        console.log("Day 8 JavaScript started");
-    </script>
+    const output = document.getElementById('output');
+
+    function log(message) {
+        output.innerHTML += `<div class="mb-2">${message}</div>`;
+        console.log(message);
+    }
+
+    log("<strong>=== Day 8: JavaScript Basics ===</strong>");
+
+    // 1. Variables - let, const, var (we avoid var in modern code)
+    let name = "Tanner Weaver";
+    const location = "Kerrtown, PA";
+    log(`Name: ${name}, Location: ${location}`);
+
+    // 2. Data Types
+    let age = 33;                    // number
+    let isLearning = true;           // boolean
+    let skills = ["HTML", "CSS", "Tailwind", "JavaScript"]; // array
+    let profile = {                  // object
+        name: name,
+        location: location,
+        daysCompleted: 8
+        daysRemaining: 22
+    };
+
+    log(`Age: ${age}, Learning: ${isLearning}`);
+    log(`Skills: ${skills.join(", ")}`);
+
+    // 3. Functions
+    function greet(person) {
+        return `Hello ${person}, welcome to Day 8!`;
+    }
+
+    log(greet("Tanner"));
+
+    // 4. Arrow Functions (modern preferred)
+    const add = (a, b) => a + b;
+    log(`5 + 7 = ${add(5, 7)}`);
+
+    // 5. Basic DOM Manipulation
+    document.querySelector('h1').style.color = '#10b981';
+    log("Changed heading color using JavaScript");
+
+    log("<strong>Week 2 has begun. Fundamentals loaded.</strong>");
+</script>
 </body>
 </html>
