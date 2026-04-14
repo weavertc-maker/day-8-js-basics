@@ -17,73 +17,79 @@
         <div id="output" class="bg-zinc-900 p-6 rounded-2xl font-mono text-sm leading-relaxed"></div>
     </div>
 
-    <script>
+<script>
     const output = document.getElementById('output');
 
     function log(message) {
-        output.innerHTML += `<div class="mb-2">${message}</div>`;
+        output.innerHTML += `<div class="mb-3">${message}</div>`;
         console.log(message);
     }
 
-    log("<strong>=== Day 8: JavaScript Basics ===</strong>");
+    log("<strong>=== Day 9: Array Methods Deep Dive ===</strong>");
 
-    // 1. Variables - let, const, var (we avoid var in modern code)
-    let name = "Tanner Weaver";
-    const location = "Kerrtown, PA";
-    log(`Name: ${name}, Location: ${location}`);
+    // Starting array
+    let skills = [
+        { name: "HTML", level: "strong" },
+        { name: "CSS", level: "strong" },
+        { name: "Tailwind CSS", level: "medium" },
+        { name: "JavaScript", level: "beginner" },
+        { name: "Git", level: "medium" }
+    ];
 
-    // 2. Data Types
-    let age = 33;                    // number
-    let isLearning = true;           // boolean
-    let skills = ["HTML", "CSS", "Tailwind", "JavaScript"]; // array
-    let profile = {                  // object
-        name: name,
-        location: location,
-        daysCompleted: 8
-        
-    };
+    log(`Total skills: ${skills.length}`);
 
+    // 1. forEach - Loop through and display
+    log("<strong>Current Skills:</strong>");
+    skills.forEach(skill => {
+        log(`• ${skill.name} (${skill.level})`);
+    });
 
-    log(`Age: ${age}, Learning: ${isLearning}`);
-    log(`Skills: ${skills.join(", ")}`);
+    // 2. map - Create a new array with transformed data
+    const skillNames = skills.map(skill => skill.name.toUpperCase());
+    log(`<strong>Uppercase names (map):</strong> ${skillNames.join(" • ")}`);
 
-    import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+    // 3. filter - Get only skills at certain level
+    const strongSkills = skills.filter(skill => skill.level === "strong");
+    log(`<strong>Strong skills (filter):</strong> ${strongSkills.map(s => s.name).join(", ")}`);
 
-public class ChallengeTracker {
-    public static long getDaysLeft(LocalDate startDate) {
-        LocalDate today = LocalDate.now(); // Get current system date
-        LocalDate endDate = startDate.plusDays(30); // Calculate challenge end date
-        
-        // Calculate days between today and the end date
-        long daysLeft = ChronoUnit.DAYS.between(today, endDate);
-        
-        // Return 0 if the challenge is already over
-        return Math.max(0, daysLeft);
+    // 4. find - Find the first matching item
+    const jsSkill = skills.find(skill => skill.name === "JavaScript");
+    log(`Found JavaScript level: ${jsSkill ? jsSkill.level : "Not found"}`);
+
+    // 5. Combining methods - Chain them together (very common pattern)
+    const beginnerSkills = skills
+        .filter(skill => skill.level === "beginner")
+        .map(skill => skill.name);
+
+    log(`Beginner skills (chained filter + map): ${beginnerSkills.join(", ")}`);
+
+    // Bonus: Add a new skill dynamically
+    function addNewSkill(skillName, skillLevel = "beginner") {
+        skills.push({ name: skillName, level: skillLevel });
+        log(`✅ Added: ${skillName} (${skillLevel})`);
+        console.table(skills);   // Nice formatted table in console
     }
 
-    public static void main(String[] args) {
-        LocalDate myStartDate = LocalDate.of(2024, 3, 25);
-        System.out.println("Days left: " + getDaysLeft(myStartDate));
-    }
-}
+    // Create "Add Skill" button
+    const btn = document.createElement('button');
+    btn.textContent = "Add New Skill";
+    btn.className = "mt-8 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 rounded-2xl font-medium transition-all active:scale-95";
+    document.querySelector('div.max-w-2xl').appendChild(btn);
 
-    // 3. Functions
-    function greet(person) {
-        return `Hello ${person}, welcome to Day 8!`;
-    }
+    btn.addEventListener('click', () => {
+        const name = prompt("Skill name:");
+        const level = prompt("Level (strong / medium / beginner):", "beginner");
+        
+        if (name && name.trim() !== "") {
+            addNewSkill(name.trim(), level.toLowerCase());
+        }
+    });
 
-    log(greet("Tanner"));
+    // Try these yourself:
+    const sortedSKills = skills.sort((a, b) => a.name.localCompare(b.name));
+    log("Sorted alphabetically: " + sortedSkills.map(s => s.name).join(" , "));
 
-    // 4. Arrow Functions (modern preferred)
-    const add = (a, b) => a + b;
-    log(`5 + 7 = ${add(5, 7)}`);
-
-    // 5. Basic DOM Manipulation
-    document.querySelector('h1').style.color = '#10b981';
-    log("Changed heading color using JavaScript");
-
-    log("<strong>Week 2 has begun. Fundamentals loaded.</strong>");
+    log("<strong>Try clicking the button to add a new skill using array methods!</strong>");
 </script>
 </body>
 </html>
